@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiets Weekkalender</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand-row">
+        <div class="brand">RidePal</div>
+        <!--<nav class="menu">
+          <button type="button" class="menu-btn">Weekplanner</button>
+          <button type="button" class="menu-btn">Routes</button>
+          <button type="button" class="menu-btn">Vrienden</button>
+        </nav>-->
+        <!-- <button type="button" class="apply-btn">Deel Nu</button> -->
+      </div>
+
+      <div class="hero-row">
+        <div class="hero">
+         <!--<p class="section-kicker">* LEVELS</p> --> 
+          <h1>Let's ride</h1>
+        </div>
+        <div class="hero-actions">
+          <button type="button" class="join-btn">Join The Ride</button>
+          <button type="button" class="join-btn" id="addGroupBtn">+ Nieuwe groep</button>
+        </div>
+      </div>
+
+      <div class="week-controls">
+        <button id="prevWeek" type="button">Vorige week</button>
+        <strong id="weekLabel"></strong>
+        <button id="nextWeek" type="button">Volgende week</button>
+      </div>
+      <div class="group-controls">
+        <label for="groupSelect">Groep</label>
+        <select id="groupSelect"></select>
+        <button id="renameGroupBtn" type="button">Hernoem groep</button>
+        <button id="deleteGroupBtn" type="button">Verwijder groep</button>
+      </div>
+    </header>
+
+    <section class="panel friends-panel" id="friendsPanel">
+      <div class="panel-head">
+        <h2>Vriendenlijst</h2>
+        <button id="toggleFriends" type="button" class="collapse-btn" aria-expanded="true">-</button>
+      </div>
+      <div id="friendsBody">
+      <div class="friends-row">
+        <input id="friendName" type="text" placeholder="Naam toevoegen" />
+        <button id="addFriend" type="button">Toevoegen</button>
+      </div>
+      <ul id="friendsList" class="friends-list"></ul>
+      </div>
+    </section>
+
+    <section id="calendarGrid" class="calendar-grid"></section>
+
+    <section class="panel actions">
+      <!-- <p class="section-kicker">* SHARE</p> -->
+         <!-- <h2>Delen</h2>-->
+      <p>Exporteer je week en stuur het JSON-bestand door. Je vrienden kunnen het importeren.</p>
+      <div class="share-actions">
+        <button id="exportBtn" type="button">Exporteer week (.json)</button>
+        <label class="import-label">
+          Importeer week (.json)
+          <input id="importInput" type="file" accept="application/json" />
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <template id="dayTemplate">
+    <article class="day-card">
+      <h3 class="day-title"></h3>
+      <p class="gpx-name">Nog geen GPX gekoppeld.</p>
+      <button class="download-gpx" type="button" hidden>Download GPX</button>
+      <div class="map-wrap">
+        <input class="gpx-input" type="file" accept=".gpx,application/gpx+xml,text/xml,application/xml" hidden />
+        <button class="map-upload" type="button">Upload</button>
+        <button class="map-remove" type="button" hidden aria-label="Verwijder GPX">×</button>
+        <div class="map-stats" hidden></div>
+        <div class="map-preview"></div>
+        <p class="map-empty">Nog geen route om te tonen.</p>
+      </div>
+      <div class="field">
+        <span>Wie gaat mee?</span>
+        <div class="participants"></div>
+      </div>
+      <label class="field">
+        <span>Notities</span>
+        <textarea class="notes" rows="3" placeholder="Afspraak, uur, vertrekplaats..."></textarea>
+      </label>
+    </article>
+  </template>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script src="app.js"></script>
+</body>
+</html>
